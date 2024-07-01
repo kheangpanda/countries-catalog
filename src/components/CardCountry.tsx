@@ -17,9 +17,9 @@ import { CountryInfo } from "../type";
 
 interface Props {
   data: CountryInfo;
+  handleOpenModal: any;
 }
-
-const CardCountry = ({ data }: Props) => {
+const CardCountry = ({ data, handleOpenModal }: Props) => {
   return (
     <Card
       sx={{
@@ -28,6 +28,7 @@ const CardCountry = ({ data }: Props) => {
         justifyContent: "space-between",
         flexDirection: "column",
       }}
+      onClick={() => handleOpenModal(data)}
     >
       <CardActionArea>
         <CardMedia

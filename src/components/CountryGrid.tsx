@@ -14,6 +14,7 @@ interface Prop {
   count: number;
   handleChangePage: any;
   handleChangeRowsPerPage: any;
+  handleOpenModal: any;
 }
 
 const ListCountries = ({
@@ -23,6 +24,7 @@ const ListCountries = ({
   count,
   handleChangePage,
   handleChangeRowsPerPage,
+  handleOpenModal,
 }: Prop) => {
   return (
     <Box sx={{ width: "100%" }}>
@@ -42,7 +44,7 @@ const ListCountries = ({
         {items.map((item, index) => {
           return (
             <Grid item xs={3} key={index} style={{ display: "flex" }}>
-              <CardCountry data={item} />
+              <CardCountry data={item} handleOpenModal={handleOpenModal} />
             </Grid>
           );
         })}

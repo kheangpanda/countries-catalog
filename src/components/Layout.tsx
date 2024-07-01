@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import ListCountries from "./CountryGrid";
 import PrimarySearchAppBar from "./Header";
+import BasicModal from "./CountryModal";
 
 import { fetchGetCountries } from "../api";
-import { CountryInfo } from "../type";
+import { CountryInfo, defaulCountryData } from "../type";
 
 import Fuse from "fuse.js";
 
@@ -17,6 +18,9 @@ const AppLayout = () => {
   const [search, setSearch] = useState<string>("");
   //1 = Asc, 2= Desc
   const [sort, setSort] = useState<number>(1);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [itemSelected, setItemSelected] =
+    useState<CountryInfo>(defaulCountryData);
 
   useEffect(() => {
     const getCountries = async () => {
@@ -88,6 +92,15 @@ const AppLayout = () => {
     setSort((preVal) => (preVal === 1 ? 2 : 1));
   };
 
+  const handleOpenModal = (item: CountryInfo) => {
+    setOpenModal(true);
+    setItemSelected(item);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    // setItemSelected();
+  };
+
   return (
     <>
       <PrimarySearchAppBar
@@ -103,6 +116,13 @@ const AppLayout = () => {
         count={count}
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
+        handleOpenModal={handleOpenModal}
+      />
+      <BasicModal
+        itemSelected={itemSelected}
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+        handleOpenModal={handleOpenModal}
       />
     </>
   );
