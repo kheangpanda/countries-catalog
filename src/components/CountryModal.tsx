@@ -66,6 +66,27 @@ const BasicModal = ({
               <ButtonBase sx={{ width: 600 }}>
                 <Img alt="complex" src={itemSelected.flags?.png} />
               </ButtonBase>
+              <Typography
+                sx={{ mt: 5, textAlign: "center" }}
+                variant="h5"
+                component="div"
+              >
+                {itemSelected?.name.official}
+              </Typography>
+              <Typography
+                sx={{ mt: 5, textAlign: "center" }}
+                variant="h5"
+                component="div"
+              >
+                {itemSelected?.name.common}
+              </Typography>
+              <Typography
+                sx={{ mt: 5, textAlign: "center" }}
+                variant="h5"
+                component="div"
+              >
+                {itemSelected?.altSpellings.join(", ")}
+              </Typography>
             </Grid>
             <Grid item md={6} xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
@@ -73,6 +94,39 @@ const BasicModal = ({
                   <TableContainer component={Paper}>
                     <Table>
                       <TableBody>
+                        <TableRow>
+                          <TableCell>
+                            <Typography variant="body1">Population</Typography>
+                          </TableCell>
+                          <TableCell>
+                            {itemSelected?.population.toLocaleString()}
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>
+                            <Typography variant="body1">Area</Typography>
+                          </TableCell>
+                          <TableCell>
+                            {itemSelected?.area.toLocaleString()} km
+                            <sup>2</sup>
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>
+                            <Typography variant="body1">Timezones</Typography>
+                          </TableCell>
+                          <TableCell>
+                            {itemSelected?.timezones.join(", ")}
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>
+                            <Typography variant="body1">Continents</Typography>
+                          </TableCell>
+                          <TableCell>
+                            {itemSelected?.continents.join(", ")}
+                          </TableCell>
+                        </TableRow>
                         <TableRow>
                           <TableCell>
                             <Typography variant="body1">

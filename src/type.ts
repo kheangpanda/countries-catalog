@@ -13,6 +13,16 @@ interface iddProp {
     cioc: string;
     altSpellings: string[];
     idd: iddProp;
+    currencies: any;
+    capital:string[];
+    population:number;
+    area:number;
+    timezones:string[];
+    continents:string[];
+
+
+
+
   };
 
 
