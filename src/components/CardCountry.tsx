@@ -13,56 +13,26 @@ import {
   TableRow,
 } from "@mui/material";
 
-import { fetchGetCountries } from "../api";
+import { CountryInfo } from "../type";
 
-interface iddProp {
-  root: string;
-  suffixes: string[];
+interface Props {
+  data: CountryInfo;
 }
 
-type CountryInfo = {
-  name: string;
-  flagImg: string;
-  cca2: string;
-  cca3: string;
-  nativeName: string;
-  altSpellings: string[];
-  idd: iddProp;
-};
-
-const CardCountry = () => {
-  const [data, setData] = useState<CountryInfo>();
-
-  useEffect(() => {
-    const getCountries = async () => {
-      const data = await fetchGetCountries();
-      console.log(data[0]);
-      const resultData = {
-        name: data[0].name.official,
-        nativeName: data[0].name.nativeName.fra.official,
-        flagImg: data[0].flags.png,
-        cca2: data[0].cca2,
-        cca3: data[0].cca3,
-        altSpellings: data[0].altSpellings,
-        idd: data[0].idd,
-      };
-
-      setData(resultData);
-    };
-    getCountries();
-  }, []);
+const CardCountry = ({ data }: Props) => {
   return (
     <Card sx={{ maxWidth: 460 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image={data?.flagImg}
-          alt="green iguana"
+          image={data?.flags?.png}
+          alt={data?.name.official}
+          sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {data?.name}
+            {data?.name.official}
           </Typography>
 
           <TableContainer component={Paper}>
@@ -80,7 +50,18 @@ const CardCountry = () => {
                   <TableCell>
                     <Typography variant="body1">Native Name</Typography>
                   </TableCell>
-                  <TableCell>{data?.nativeName}</TableCell>
+                  <TableCell>
+                    {data?.name?.nativeName && data.cca3 && (
+                      <>
+                        {data.name.nativeName[data.cca3.toLowerCase()]
+                          ? data.name.nativeName[data.cca3.toLowerCase()]
+                              ?.official
+                          : data.name.nativeName["eng"]
+                          ? data.name.nativeName["eng"]?.official
+                          : data.name.nativeName["fra"]?.official}
+                      </>
+                    )}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
@@ -100,7 +81,7 @@ const CardCountry = () => {
                     <Typography variant="body1">Country Code</Typography>
                   </TableCell>
                   <TableCell>
-                    {data?.idd.root} (Root) | {data?.idd.suffixes.join(" ")}{" "}
+                    {data?.idd.root} (Root) | {data?.idd?.suffixes}
                     (Surface)
                   </TableCell>
                 </TableRow>
