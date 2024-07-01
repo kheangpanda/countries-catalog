@@ -8,18 +8,45 @@ import { CountryInfo } from "../type";
 
 const AppLayout = () => {
   const [data, setData] = useState<CountryInfo[]>([]);
+  const [page, setPage] = React.useState(0);
+  const [limit, setLimit] = React.useState(25);
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     const getCountries = async () => {
-      const data = await fetchGetCountries();
+      let data = await fetchGetCountries();
+      setCount(data.length);
+      data = data.slice(page * limit, limit + page * limit);
       setData(data);
     };
     getCountries();
-  }, []);
+  }, [page, limit]);
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setLimit(parseInt(event.target.value));
+    setPage(0);
+  };
+
   return (
     <>
       <PrimarySearchAppBar />
-      <ListCountries items={data} />
+      <ListCountries
+        items={data}
+        page={page}
+        limit={limit}
+        count={count}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+      />
     </>
   );
 };

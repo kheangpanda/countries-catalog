@@ -14,3 +14,12 @@ interface iddProp {
     altSpellings: string[];
     idd: iddProp;
   };
+
+
+export interface paginationProp {
+  page: number;
+  limit: number;
+  count: number;
+  handleChangePage: any
+  handleChangeRowsPerPage: any
+}

@@ -21,7 +21,14 @@ interface Props {
 
 const CardCountry = ({ data }: Props) => {
   return (
-    <Card sx={{ maxWidth: 460 }}>
+    <Card
+      sx={{
+        maxWidth: 460,
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "column",
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
