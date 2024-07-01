@@ -1,10 +1,11 @@
 import React from "react";
 import { Button } from "@mui/material";
 import ListCountries from "./components/CountryGrid";
+import PrimarySearchAppBar from "./components/Header";
 function App() {
   return (
     <div className="App">
-      <h1>Country Categories</h1>
+      <PrimarySearchAppBar />
       <ListCountries />
     </div>
   );
